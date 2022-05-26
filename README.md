@@ -30,6 +30,5 @@ My name is Ahoo Wang.
   - [SmartCode](https://github.com/dotnetcore/SmartCode): SmartCode = IDataSource -> IBuildTask -> IOutput => Build Everything!
   - [elasticsearch-script-velocity](https://github.com/Ahoo-Wang/elasticsearch-script-velocity): Velocity for Elasticsearch.
   - [pigeon](https://github.com/Ahoo-Wang/pigeon): Distributed instant messaging system.
-  - [CosRPC](https://github.com/Ahoo-Wang/CosRPC): Reactive remote procedure call.
 
 ![Github Stats](https://github-readme-stats.vercel.app/api?username=Ahoo-Wang&show_icons=true)

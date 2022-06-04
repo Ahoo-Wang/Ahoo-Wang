@@ -19,7 +19,8 @@ My name is Ahoo Wang.
 
 - 👨‍💻 I’m a lifelong learner,open source enthusiasts.Love C#,Java,Go,Python,Kubernetes,BigData.
 - 🔭 I’m a currently working on [CosId](https://github.com/Ahoo-Wang/CosId) , [CoSky](https://github.com/Ahoo-Wang/CoSky).
-- 🌱 I’m currently learning Domain-Driven Design(DDD) & Reactive programming.
+- 🌱 I’m currently learning Domain-Driven Design (DDD) & Command Query Responsibility Segregation
+(CQRS) & Event Sourcing (ES) & Reactive programming.
 - 📫 How to reach me: ahoowang@gmail.com
 - ⚡ Open source project: 
   - [CosId](https://github.com/Ahoo-Wang/CosId): Universal, flexible, high-performance distributed ID generator.

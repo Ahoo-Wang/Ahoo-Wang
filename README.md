@@ -32,6 +32,6 @@ My name is Ahoo Wang.
   - [SmartSql](https://github.com/dotnetcore/SmartSql): MyBatis in C# + .NET Core+ Cache(Memory | Redis) + R/W Splitting + PropertyChangedTrack +Dynamic Repository + InvokeSync + Diagnostics.
   - [SmartCode](https://github.com/dotnetcore/SmartCode): SmartCode = IDataSource -> IBuildTask -> IOutput => Build Everything!
   - [elasticsearch-script-velocity](https://github.com/Ahoo-Wang/elasticsearch-script-velocity): Velocity for Elasticsearch.
-  - [pigeon](https://github.com/Ahoo-Wang/pigeon): Distributed instant messaging system.
+  - [Pigeon](https://github.com/Ahoo-Wang/Pigeon): Distributed instant messaging system.
 
 ![Github Stats](https://github-readme-stats.vercel.app/api?username=Ahoo-Wang&show_icons=true)

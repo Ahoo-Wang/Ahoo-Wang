@@ -18,11 +18,12 @@ Here are some ideas to get you started:
 My name is Ahoo Wang.
 
 - 👨‍💻 I’m a lifelong learner,open source enthusiasts.Love C#,Java,Kotlin,Go,Python,Kubernetes,BigData.
-- 🔭 I’m a currently working on [CosId](https://github.com/Ahoo-Wang/CosId) , [CoSky](https://github.com/Ahoo-Wang/CoSky).
+- 🔭 I’m a currently working on [Wow](https://github.com/Ahoo-Wang/Wow).
 - 🌱 I’m currently learning Domain-Driven Design (DDD) & Command Query Responsibility Segregation
 (CQRS) & Event Sourcing (ES) & Reactive programming.
 - 📫 How to reach me: ahoowang@gmail.com
 - ⚡ Open source project: 
+  - [Wow](https://github.com/Ahoo-Wang/Wow): A Modern Reactive CQRS Architecture Microservice development framework based on DDD and EventSourcing.
   - [CosId](https://github.com/Ahoo-Wang/CosId): Universal, flexible, high-performance distributed ID generator.
   - [CoSky](https://github.com/Ahoo-Wang/CoSky): High-performance, low-cost microservice governance platform. Service Discovery and Configuration Service.
   - [CoCache](https://github.com/Ahoo-Wang/CoCache): Level 2 Distributed Coherence Cache Framework.

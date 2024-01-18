@@ -28,6 +28,7 @@ My name is Ahoo Wang.
   - [CoSky](https://github.com/Ahoo-Wang/CoSky): High-performance, low-cost microservice governance platform. Service Discovery and Configuration Service.
   - [CoCache](https://github.com/Ahoo-Wang/CoCache): Level 2 Distributed Coherence Cache Framework.
   - [CoSec](https://github.com/Ahoo-Wang/CoSec): RBAC-based And Policy-based Multi-Tenant Reactive Security Framework.
+  - [CoApi](https://github.com/Ahoo-Wang/CoApi): Streamlining HTTP client definition in Spring 6, CoApi provides zero boilerplate code auto-configuration for more convenient and efficient interface calls.
   - [Simba](https://github.com/Ahoo-Wang/Simba): Simba aims to provide easy-to-use and flexible distributed lock services and supports multiple storage implementations: relational databases, Redis, and Zookeeper.
   - [SmartSql](https://github.com/dotnetcore/SmartSql): MyBatis in C# + .NET Core+ Cache(Memory | Redis) + R/W Splitting + PropertyChangedTrack +Dynamic Repository + InvokeSync + Diagnostics.
   - [SmartCode](https://github.com/dotnetcore/SmartCode): SmartCode = IDataSource -> IBuildTask -> IOutput => Build Everything!

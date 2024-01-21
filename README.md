@@ -25,17 +25,17 @@ My name is Ahoo Wang.
 
 ---
 
-[![Wow](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=Wow&show_owner=true&description_lines_count=3)](https://github.com/Ahoo-Wang/Wow)
-[![CosId](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=CosId&show_owner=true&description_lines_count=3)](https://github.com/Ahoo-Wang/CosId)
-[![CoSky](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=CoSky&show_owner=true&description_lines_count=3)](https://github.com/Ahoo-Wang/CoSky)
-[![CoCache](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=CoCache&show_owner=true&description_lines_count=3)](https://github.com/Ahoo-Wang/CoCache)
-[![CoSec](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=CoSec&show_owner=true&description_lines_count=3)](https://github.com/Ahoo-Wang/CoSec)
-[![CoApi](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=CoApi&show_owner=true&description_lines_count=3)](https://github.com/Ahoo-Wang/CoApi)
-[![Simba](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=Simba&show_owner=true&description_lines_count=3)](https://github.com/Ahoo-Wang/Simba)
-[![SmartSql](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=SmartSql&show_owner=true&description_lines_count=3)](https://github.com/Ahoo-Wang/SmartSql)
-[![SmartCode](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=SmartCode&show_owner=true&description_lines_count=3)](https://github.com/Ahoo-Wang/SmartCode)
-[![elasticsearch-script-velocity](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=elasticsearch-script-velocity&show_owner=true&description_lines_count=3)](https://github.com/Ahoo-Wang/elasticsearch-script-velocity)
-[![Pigeon](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=Pigeon&show_owner=true&description_lines_count=3)](https://github.com/Ahoo-Wang/Pigeon)
+[![Wow](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=Wow&description_lines_count=3)](https://github.com/Ahoo-Wang/Wow)
+[![CosId](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=CosId&description_lines_count=3)](https://github.com/Ahoo-Wang/CosId)
+[![CoSky](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=CoSky&description_lines_count=3)](https://github.com/Ahoo-Wang/CoSky)
+[![CoCache](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=CoCache&description_lines_count=3)](https://github.com/Ahoo-Wang/CoCache)
+[![CoSec](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=CoSec&description_lines_count=3)](https://github.com/Ahoo-Wang/CoSec)
+[![CoApi](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=CoApi&description_lines_count=3)](https://github.com/Ahoo-Wang/CoApi)
+[![Simba](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=Simba&description_lines_count=3)](https://github.com/Ahoo-Wang/Simba)
+[![SmartSql](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=SmartSql&description_lines_count=3)](https://github.com/Ahoo-Wang/SmartSql)
+[![SmartCode](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=SmartCode&description_lines_count=3)](https://github.com/Ahoo-Wang/SmartCode)
+[![elasticsearch-script-velocity](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=elasticsearch-script-velocity&description_lines_count=3)](https://github.com/Ahoo-Wang/elasticsearch-script-velocity)
+[![Pigeon](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=Pigeon&description_lines_count=3)](https://github.com/Ahoo-Wang/Pigeon)
 
 ---
 

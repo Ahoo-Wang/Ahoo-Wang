@@ -35,7 +35,6 @@ My name is Ahoo Wang.
 [![SmartSql](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=SmartSql&description_lines_count=3)](https://github.com/Ahoo-Wang/SmartSql)
 [![SmartCode](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=SmartCode&description_lines_count=3)](https://github.com/Ahoo-Wang/SmartCode)
 [![elasticsearch-script-velocity](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=elasticsearch-script-velocity&description_lines_count=3)](https://github.com/Ahoo-Wang/elasticsearch-script-velocity)
-[![Pigeon](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=Pigeon&description_lines_count=3)](https://github.com/Ahoo-Wang/Pigeon)
 
 ---
 

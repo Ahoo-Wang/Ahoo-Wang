@@ -27,6 +27,7 @@ My name is Ahoo Wang.
 
 [![Wow](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=Wow&description_lines_count=3)](https://github.com/Ahoo-Wang/Wow)
 [![CosId](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=CosId&description_lines_count=3)](https://github.com/Ahoo-Wang/CosId)
+[![Fetcher](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=fetcher&description_lines_count=3)]([https://github.com/Ahoo-Wang/CosId](https://github.com/Ahoo-Wang/fetcher))
 [![CoSky](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=CoSky&description_lines_count=3)](https://github.com/Ahoo-Wang/CoSky)
 [![CoSec](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=CoSec&description_lines_count=3)](https://github.com/Ahoo-Wang/CoSec)
 [![SmartSql](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=SmartSql&description_lines_count=3)](https://github.com/Ahoo-Wang/SmartSql)

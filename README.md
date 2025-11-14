@@ -25,9 +25,9 @@ My name is Ahoo Wang.
 
 ---
 
+[![fetcher](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=fetcher&description_lines_count=3)](https://github.com/Ahoo-Wang/fetcher)
 [![Wow](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=Wow&description_lines_count=3)](https://github.com/Ahoo-Wang/Wow)
 [![CosId](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=CosId&description_lines_count=3)](https://github.com/Ahoo-Wang/CosId)
-[![fetcher](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=fetcher&description_lines_count=3)](https://github.com/Ahoo-Wang/fetcher)
 [![CoSky](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=CoSky&description_lines_count=3)](https://github.com/Ahoo-Wang/CoSky)
 [![CoSec](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=CoSec&description_lines_count=3)](https://github.com/Ahoo-Wang/CoSec)
 [![SmartSql](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=SmartSql&description_lines_count=3)](https://github.com/Ahoo-Wang/SmartSql)
@@ -35,7 +35,9 @@ My name is Ahoo Wang.
 [![CoApi](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=CoApi&description_lines_count=3)](https://github.com/Ahoo-Wang/CoApi)
 [![Simba](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=Simba&description_lines_count=3)](https://github.com/Ahoo-Wang/Simba)
 [![CoCache](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=CoCache&description_lines_count=3)](https://github.com/Ahoo-Wang/CoCache)
+[![FluentAssert](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=FluentAssert&description_lines_count=3)](https://github.com/Ahoo-Wang/FluentAssert)
 [![elasticsearch-script-velocity](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=elasticsearch-script-velocity&description_lines_count=3)](https://github.com/Ahoo-Wang/elasticsearch-script-velocity)
+[![wow-project-template](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=wow-project-template&description_lines_count=3)](https://github.com/Ahoo-Wang/wow-project-template)
 
 ---
 

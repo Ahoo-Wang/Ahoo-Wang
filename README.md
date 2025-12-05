@@ -9,7 +9,7 @@ I'm a systems architect and builder, deeply passionate about the intersection of
 - **Platform Development:** Recently developed an **Intelligent Agent Orchestration Platform** from the ground up.
 
 **🧱 Core Technical Stack**
-- **Languages:** Java/Kotlin, Go, Python, C#
+- **Languages:** Java/Kotlin, C#, Python, TypeScript
 - **Infrastructure & Data:** Kubernetes, BigData ecosystems
 - **Architecture:** Distributed systems, Event-Driven Architectures (EDA), Domain-Driven Design (DDD), CQRS, Event Sourcing
 

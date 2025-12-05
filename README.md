@@ -1,29 +1,31 @@
 ### Hi there 👋
 
-<!--
-**Ahoo-Wang/Ahoo-Wang** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
-
 My name is Ahoo Wang.
 
-- 👨‍💻 I’m a lifelong learner,open source enthusiasts.Love C#,Java,Kotlin,Go,Python,Kubernetes,BigData.
-- 🔭 I’m a currently working on [Wow](https://github.com/Ahoo-Wang/Wow).
-- 🌱 I’m currently learning Domain-Driven Design (DDD) & Command Query Responsibility Segregation
-(CQRS) & Event Sourcing (ES) & Reactive programming.
-- 📫 How to reach me: ahoowang@gmail.com
+I'm a systems architect and builder, deeply passionate about the intersection of **LLMs, Agentic AI, and scalable distributed systems**. My current focus is on designing the next generation of intelligent systems, from foundational research to production-ready platforms.
+
+**🤖 AI & Agent Focus**
+- **Research & Design:** Leading the design and research of next-generation **Agent Orchestration Engines**.
+- **Platform Development:** Recently developed an **Intelligent Agent Orchestration Platform** from the ground up.
+
+**🧱 Core Technical Stack**
+- **Languages:** Java/Kotlin, Go, Python, C#
+- **Infrastructure & Data:** Kubernetes, BigData ecosystems
+- **Architecture:** Distributed systems, Event-Driven Architectures (EDA), Domain-Driven Design (DDD), CQRS, Event Sourcing
+
+**🔭 Current Main Project**
+I'm actively building **[Wow](https://github.com/Ahoo-Wang/Wow)** – a modern, distributed application framework designed to support the development of complex, event-driven systems and agentic workflows.
+
+**🌱 Continuous Learning**
+Deepening expertise in **Advanced DDD, Event-Sourced Architectures, and Reactive patterns** to better model and implement sophisticated AI agent behaviors and interactions.
+
+**📫 Let's Connect**
+- Email: ahoowang@qq.com
+- I'm open to discussions about **LLM/Agent architecture, system design, and challenging engineering problems.**
 
 ---
+
+### Featured Projects
 
 [![fetcher](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=fetcher&description_lines_count=3)](https://github.com/Ahoo-Wang/fetcher)
 [![Wow](https://github-readme-stats.vercel.app/api/pin/?username=Ahoo-Wang&repo=Wow&description_lines_count=3)](https://github.com/Ahoo-Wang/Wow)

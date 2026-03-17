@@ -23,6 +23,8 @@ Deepening expertise in **Advanced DDD, Event-Sourced Architectures, and Reactive
 - Email: ahoowang@qq.com
 - I'm open to discussions about **LLM/Agent architecture, system design, and challenging engineering problems.**
 
+![Ahoo-Wang's GitHub stats](https://github-readme-stats.vercel.app/api?username=Ahoo-Wang&hide_border=true&show_icons=true&include_all_commits=true&count_private=true&theme=buefy)
+
 ---
 
 ## ✨ Featured Projects

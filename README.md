@@ -43,6 +43,7 @@ Deepening expertise in **Advanced DDD, Event-Sourced Architectures, and Reactive
 
 ### 🛠️ Development Tools & Clients | 开发工具与客户端
 - **[fetcher](https://github.com/Ahoo-Wang/fetcher)** - A complete ecosystem for modern web development with native LLM streaming API support. Built on Fetch API | 支持原生 LLM 流式 API 的现代 HTTP 客户端生态。`TypeScript` `LLM` `HTTP Client` `React`
+- **[Cobal](https://github.com/Ahoo-Wang/Cobal)** - Load balancing library for LLM/AI client SDKs with Resilience4j circuit breakers | 基于 Resilience4j 断路器的 LLM/AI 客户端负载均衡库。`Java` `负载均衡` `LLM` `Resilience4j`
 - **[SmartSql](https://github.com/dotnetcore/SmartSql)** - SmartSql = MyBatis in C# + .NET Core+ Cache(Memory | Redis) + R/W Splitting + ... | C# 平台高性能、灵活的 ORM 框架。`C#` `.NET` `ORM`
 - **[SmartCode](https://github.com/dotnetcore/SmartCode)** - SmartCode = IDataSource -> IBuildTask -> IOutput => Build Everything!!! | 一站式代码生成与自动化开发平台。`.NET` `代码生成` `ETL`
 - **[CoApi](https://github.com/Ahoo-Wang/CoApi)** - Streamlining HTTP client definition in Spring 6, providing zero boilerplate code auto-configuration | 简化 Spring 6 HTTP 客户端定义的零样板工具。`Java` `Spring` `HttpClient`

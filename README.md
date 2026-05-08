@@ -31,12 +31,6 @@ Deepening expertise in **Advanced DDD, Event-Sourced Architectures, and Reactive
 
 ## ✨ Featured Projects
 
-I've noted the addition of **https://github.com/Ahoo-Wang/skills** – a central aggregator for Claude Code skills from your open-source projects, automatically synced every 6 hours via GitHub Actions.
-
-Here's a quick overview of the repository and your ecosystem:
-
----
-
 ### 🧠 Skill Repository
 
 - **[Ahoo-Wang/skills](https://github.com/Ahoo-Wang/skills)** – Aggregation of Agent skills extracted and kept up-to-date automatically from my open source projects.  | 从我的开源项目中自动提取并保持最新的 Agent 技能合集。`Agent Skills` `技能合集` `自动同步` `GitHub Actions` 

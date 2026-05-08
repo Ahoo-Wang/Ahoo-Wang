@@ -31,6 +31,16 @@ Deepening expertise in **Advanced DDD, Event-Sourced Architectures, and Reactive
 
 ## ✨ Featured Projects
 
+I've noted the addition of **https://github.com/Ahoo-Wang/skills** – a central aggregator for Claude Code skills from your open-source projects, automatically synced every 6 hours via GitHub Actions.
+
+Here's a quick overview of the repository and your ecosystem:
+
+---
+
+### 🧠 Skill Repository
+
+- **[Ahoo-Wang/skills](https://github.com/Ahoo-Wang/skills)** – Aggregation of Agent skills extracted and kept up-to-date automatically from my open source projects.  | 从我的开源项目中自动提取并保持最新的 Agent 技能合集。`Agent Skills` `技能合集` `自动同步` `GitHub Actions` 
+
 ### 🏗️ Core Frameworks & Architecture | 核心框架与架构
 - **[Wow](https://github.com/Ahoo-Wang/Wow)** - Modern Reactive CQRS Architecture Microservice development framework based on DDD and EventSourcing | 基于 DDD & EventSourcing 的现代响应式 CQRS 架构微服务开发框架。`Kotlin` `Java` `响应式` `DDD` `CQRS` `EventSourcing` `微服务`
 - **[CoSky](https://github.com/Ahoo-Wang/CoSky)** - High-performance, low-cost microservice governance platform. Service Discovery and Configuration Service | 高性能、低成本微服务治理平台。`微服务` `服务注册与发现` `配置中心` `治理`

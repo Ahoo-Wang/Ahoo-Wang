@@ -37,7 +37,7 @@ Deepening expertise in **Advanced DDD, Event-Sourced Architectures, and Reactive
 
 ### 🏗️ Core Frameworks & Architecture | 核心框架与架构
 - **[Wow](https://github.com/Ahoo-Wang/Wow)** | [📖 Wiki](https://wow.ahoo.me) - Modern Reactive CQRS Architecture Microservice development framework based on DDD and EventSourcing | 基于 DDD & EventSourcing 的现代响应式 CQRS 架构微服务开发框架。`Kotlin` `Java` `响应式` `DDD` `CQRS` `EventSourcing` `微服务`
-- **[CoSky](https://github.com/Ahoo-Wang/CoSky)** - High-performance, low-cost microservice governance platform. Service Discovery and Configuration Service | 高性能、低成本微服务治理平台。`微服务` `服务注册与发现` `配置中心` `治理`
+- **[CoSky](https://github.com/Ahoo-Wang/CoSky)** | [📖 Wiki](https://cosky.ahoo.me) - High-performance, low-cost microservice governance platform. Service Discovery and Configuration Service | 高性能、低成本微服务治理平台。`微服务` `服务注册与发现` `配置中心` `治理`
 
 ### ⚙️ Distributed Systems & Middleware | 分布式系统与中间件
 - **[CosId](https://github.com/Ahoo-Wang/CosId)** | [📖 Wiki](https://cosid.ahoo.me) - Universal, flexible, high-performance distributed ID generator | 通用、灵活、高性能的分布式 ID 生成器。`Java` `分布式ID`

@@ -42,7 +42,7 @@ Deepening expertise in **Advanced DDD, Event-Sourced Architectures, and Reactive
 ### ⚙️ Distributed Systems & Middleware | 分布式系统与中间件
 - **[CosId](https://github.com/Ahoo-Wang/CosId)** | [📖 Wiki](https://cosid.ahoo.me) - Universal, flexible, high-performance distributed ID generator | 通用、灵活、高性能的分布式 ID 生成器。`Java` `分布式ID`
 - **[CoSec](https://github.com/Ahoo-Wang/CoSec)** | [📖 Wiki](https://cosec.ahoo.me) - RBAC-based And Policy-based Multi-Tenant Reactive Security Framework | 基于 RBAC 和策略的多租户响应式安全框架。`Java` `安全` `网关` 
-- **[Simba](https://github.com/Ahoo-Wang/Simba)** - Distributed lock service | 分布式锁服务。`Java` `分布式锁` `分布式调度`
+- **[Simba](https://github.com/Ahoo-Wang/Simba)** | [📖 Wiki](https://simba.ahoo.me) - Distributed lock service | 分布式锁服务。`Java` `分布式锁` `分布式调度`
 - **[CoCache](https://github.com/Ahoo-Wang/CoCache)** | [📖 Wiki](https://cocache.ahoo.me) - Level 2 Distributed Coherence Cache Framework | 二级分布式协同缓存框架。`Java` `缓存`
 
 ### 🛠️ Development Tools & Clients | 开发工具与客户端

@@ -33,7 +33,7 @@ Deepening expertise in **Advanced DDD, Event-Sourced Architectures, and Reactive
 
 ### 🧠 Skill Repository
 
-- **[Ahoo-Wang/skills](https://github.com/Ahoo-Wang/skills)** – Aggregation of Agent skills extracted and kept up-to-date automatically from my open source projects.  | 从我的开源项目中自动提取并保持最新的 Agent 技能合集。`Agent Skills` `技能合集` `自动同步` `GitHub Actions` 
+- **[Ahoo-Wang/skills](https://github.com/Ahoo-Wang/skills)** | [📖 Wiki](https://skills.ahoo.me) – Aggregation of Agent skills extracted and kept up-to-date automatically from my open source projects.  | 从我的开源项目中自动提取并保持最新的 Agent 技能合集。`Agent Skills` `技能合集` `自动同步` `GitHub Actions` 
 
 ### 🏗️ Core Frameworks & Architecture | 核心框架与架构
 - **[Wow](https://github.com/Ahoo-Wang/Wow)** | [📖 Wiki](https://wow.ahoo.me) - Modern Reactive CQRS Architecture Microservice development framework based on DDD and EventSourcing | 基于 DDD & EventSourcing 的现代响应式 CQRS 架构微服务开发框架。`Kotlin` `Java` `响应式` `DDD` `CQRS` `EventSourcing` `微服务`

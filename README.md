@@ -20,7 +20,7 @@ I'm actively building **[Wow](https://github.com/Ahoo-Wang/Wow)** – a modern, 
 Deepening expertise in **Advanced DDD, Event-Sourced Architectures, and Reactive patterns** to better model and implement sophisticated AI agent behaviors and interactions.
 
 ### **📫 Let's Connect**
-- Email: ahoowang@qq.com
+- Email: ahoowang@gmail.com
 - I'm open to discussions about **LLM/Agent architecture, system design, and challenging engineering problems.**
 
 ---

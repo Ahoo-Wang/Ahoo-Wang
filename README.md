@@ -25,7 +25,7 @@ Deepening expertise in **Advanced DDD, Event-Sourced Architectures, and Reactive
 
 ---
 
-![Ahoo-Wang's GitHub stats](https://github-readme-stats.vercel.app/api?username=Ahoo-Wang&show_icons=true&theme=radical)
+![Ahoo-Wang's GitHub stats](https://github-readme-stats-eight-theta.vercel.app/api?username=Ahoo-Wang&show_icons=true&theme=radical)
 
 ---
 

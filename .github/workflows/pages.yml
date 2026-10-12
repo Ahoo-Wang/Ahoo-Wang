@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths: ["site/**", ".github/workflows/pages.yml"]
   schedule:
-    - cron: "17 3 * * 1" # weekly, to refresh GitHub star counts
+    - cron: "17 3 * * *" # daily, to refresh GitHub star counts
   workflow_dispatch:
 
 permissions:

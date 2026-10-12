@@ -1,0 +1,244 @@
+---
+// The hero visual: Wow's write path, drawn as a live system diagram.
+// Pure SVG + CSS — readable by screen readers and crawlers through <title>/<desc>,
+// and the data packets stop moving under prefers-reduced-motion.
+import { copy, t, type Locale } from "../content";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+// Two layouts of the same graph: three columns for wide screens, a taller
+// arrangement for phones so labels stay readable. CSS shows exactly one.
+type Node = { cx: number; y: number; label: string; sub: string; hot?: boolean };
+type Layout = {
+  id: string;
+  width: number;
+  height: number;
+  w: number; // node width
+  nodes: Node[];
+  flows: { d: string; delay: number }[];
+  labels: { x: number; y: number; text: string }[];
+  spec: number; // y of the Given → When → Expect line
+};
+const H = 52;
+const node = (cx: number, y: number, label: string, sub: string, hot = false): Node => ({ cx, y, label, sub, hot });
+
+const wide: Layout = {
+  id: "wide",
+  width: 560,
+  height: 340,
+  w: 136,
+  nodes: [
+    node(84, 40, "Command", "POST /order"),
+    node(280, 40, "Aggregate", "decide()", true),
+    node(476, 40, "Event Store", "append(v+1)"),
+    node(84, 236, "Projection", "read model"),
+    node(280, 236, "Saga", "next command"),
+    node(476, 236, "Snapshot", "state@v"),
+  ],
+  flows: [
+    { d: "M152 66 H212", delay: 0 },
+    { d: "M348 66 H408", delay: 0.5 },
+    { d: "M476 92 V168 H84 V236", delay: 1 },
+    { d: "M280 168 V236", delay: 1.45 },
+    { d: "M476 168 V236", delay: 1.2 },
+  ],
+  labels: [
+    { x: 182, y: 56, text: "send" },
+    { x: 378, y: 56, text: "event" },
+    { x: 280, y: 158, text: "event bus" },
+  ],
+  spec: 322,
+};
+
+const narrow: Layout = {
+  id: "narrow",
+  width: 360,
+  height: 400,
+  w: 104,
+  nodes: [
+    node(62, 24, "Command", "POST /order"),
+    node(250, 24, "Aggregate", "decide()", true),
+    node(250, 128, "Event Store", "append(v+1)"),
+    node(62, 266, "Projection", "read model"),
+    node(180, 266, "Saga", "next cmd"),
+    node(298, 266, "Snapshot", "state@v"),
+  ],
+  flows: [
+    { d: "M114 50 H198", delay: 0 },
+    { d: "M250 76 V128", delay: 0.5 },
+    { d: "M250 180 V224 H62 V266", delay: 1 },
+    { d: "M180 224 V266", delay: 1.4 },
+    { d: "M250 224 H298 V266", delay: 1.2 },
+  ],
+  labels: [
+    { x: 156, y: 42, text: "send" },
+    { x: 278, y: 106, text: "event" },
+    { x: 140, y: 216, text: "event bus" },
+  ],
+  spec: 378,
+};
+const layouts = [wide, narrow];
+---
+
+<figure class="write-path">
+  <figcaption class="panel-bar">
+    <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span>wow · {t(copy.diagram.title, locale)}</span>
+    <span class="live" aria-hidden="true">live</span>
+  </figcaption>
+  {
+    layouts.map((l) => (
+      <svg class={l.id} viewBox={`0 0 ${l.width} ${l.height}`} role="img" aria-labelledby={`wp-${l.id}-title wp-${l.id}-desc`}>
+        <title id={`wp-${l.id}-title`}>{t(copy.diagram.title, locale)}</title>
+        <desc id={`wp-${l.id}-desc`}>{t(copy.diagram.description, locale)}</desc>
+        <defs>
+          <pattern id={`wp-${l.id}-dots`} width="14" height="14" patternUnits="userSpaceOnUse">
+            <circle cx="1" cy="1" r="1" class="grid-dot" />
+          </pattern>
+        </defs>
+        <rect width={l.width} height={l.height} fill={`url(#wp-${l.id}-dots)`} />
+        {l.flows.map((f) => <path class="wire" d={f.d} />)}
+        {l.flows.map((f) => <path class="packet" d={f.d} pathLength="100" style={`animation-delay:${f.delay}s`} />)}
+        {l.labels.map((label) => (
+          <text class="wire-label" x={label.x} y={label.y} text-anchor="middle">{label.text}</text>
+        ))}
+        {l.nodes.map((n) => (
+          <g class:list={["node", { hot: n.hot }]} transform={`translate(${n.cx - l.w / 2} ${n.y})`}>
+            <rect width={l.w} height={H} rx="10" />
+            <text class="node-label" x={l.w / 2} y="23" text-anchor="middle">{n.label}</text>
+            <text class="node-sub" x={l.w / 2} y="40" text-anchor="middle">{n.sub}</text>
+          </g>
+        ))}
+        <text class="spec" x={l.width / 2} y={l.spec} text-anchor="middle">
+          given(events) → when(command) → expect(state)
+        </text>
+      </svg>
+    ))
+  }
+</figure>
+
+<style>
+  .write-path {
+    margin: 0;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: color-mix(in srgb, var(--panel) 82%, transparent);
+    box-shadow: 0 30px 80px -40px var(--glow);
+    overflow: hidden;
+  }
+  .panel-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+    font: 500 12px/1 var(--mono);
+    color: var(--muted);
+  }
+  .dots {
+    display: flex;
+    gap: 6px;
+  }
+  .dots i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--line);
+  }
+  .live {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--signal);
+  }
+  .live::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 8px currentColor;
+  }
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    padding: 8px;
+  }
+  .narrow {
+    display: none;
+  }
+  @media (max-width: 560px) {
+    .wide {
+      display: none;
+    }
+    .narrow {
+      display: block;
+    }
+    .spec {
+      font-size: 10px;
+    }
+  }
+  .grid-dot {
+    fill: var(--line);
+    opacity: 0.6;
+  }
+  .wire {
+    fill: none;
+    stroke: var(--line-strong);
+    stroke-width: 1.5;
+  }
+  .packet {
+    fill: none;
+    stroke: var(--signal);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-dasharray: 6 94;
+    stroke-dashoffset: 100;
+    filter: drop-shadow(0 0 4px var(--signal));
+    animation: travel 2.4s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  }
+  @keyframes travel {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  .node rect {
+    fill: var(--panel);
+    stroke: var(--line-strong);
+  }
+  .node.hot rect {
+    stroke: var(--accent);
+    filter: drop-shadow(0 0 12px var(--glow));
+  }
+  .node-label {
+    font: 600 14px var(--sans);
+    fill: var(--ink);
+  }
+  .node.hot .node-label {
+    fill: var(--accent);
+  }
+  .node-sub,
+  .wire-label,
+  .spec {
+    font: 11px var(--mono);
+    fill: var(--muted);
+  }
+  .wire-label {
+    font-size: 10px;
+    letter-spacing: 0.04em;
+  }
+  .spec {
+    fill: var(--signal);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .packet {
+      animation: none;
+      stroke-dashoffset: 50;
+    }
+  }
+</style>

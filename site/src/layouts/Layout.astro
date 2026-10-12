@@ -1,0 +1,142 @@
+---
+// The document shell: metadata for search engines and link previews, the
+// header and the footer. Pages provide <main> content through the slot.
+import { getAbsoluteLocaleUrl, getRelativeLocaleUrl } from "astro:i18n";
+import geist from "../assets/fonts/geist.woff2?url";
+import { copy, defaultLocale, localeMeta, locales, person, seo, t, type Locale } from "../content";
+import { withBase } from "../paths";
+import "../styles/site.css";
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  /** Extra schema.org nodes for this page's JSON-LD graph. */
+  schema?: object[];
+  /** Omit from search results (e.g. the 404 page). */
+  noindex?: boolean;
+}
+
+const { locale, title, description, schema = [], noindex = false } = Astro.props;
+const meta = localeMeta[locale];
+const site = Astro.site!.origin;
+const home = getRelativeLocaleUrl(locale);
+const canonical = getAbsoluteLocaleUrl(locale);
+const image = new URL(seo.image, site).href;
+
+const graph = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": `${site}/#person`,
+      name: person.name,
+      alternateName: person.handle,
+      url: `${site}/`,
+      image: new URL(person.portrait, site).href,
+      email: `mailto:${person.email}`,
+      jobTitle: t(person.role, locale),
+      sameAs: [person.github],
+      knowsAbout: person.knowsAbout,
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": `${canonical}#page`,
+      url: canonical,
+      name: title,
+      description,
+      inLanguage: meta.htmlLang,
+      mainEntity: { "@id": `${site}/#person` },
+    },
+    ...schema,
+  ],
+};
+const nav = Object.entries(copy.sections).map(([id, label]) => ({ href: `${home}#${id}`, label: t(label, locale) }));
+---
+
+<!doctype html>
+<html lang={meta.htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={person.name} />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f5f6f4" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#07090b" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href={withBase(person.portrait)} type="image/jpeg" />
+    <link rel="apple-touch-icon" href={withBase(person.portrait)} />
+    <link rel="preload" href={geist} as="font" type="font/woff2" crossorigin />
+    {
+      noindex ? (
+        <meta name="robots" content="noindex" />
+      ) : (
+        <>
+          <meta name="robots" content="index, follow, max-image-preview:large" />
+          <link rel="canonical" href={canonical} />
+          {locales.map((l) => (
+            <link rel="alternate" hreflang={localeMeta[l].htmlLang} href={getAbsoluteLocaleUrl(l)} />
+          ))}
+          <link rel="alternate" hreflang="x-default" href={getAbsoluteLocaleUrl(defaultLocale)} />
+          <link rel="sitemap" href={withBase("/sitemap-index.xml")} />
+          <meta property="og:type" content="profile" />
+          <meta property="og:site_name" content={person.name} />
+          <meta property="og:locale" content={meta.ogLocale} />
+          {locales
+            .filter((l) => l !== locale)
+            .map((l) => (
+              <meta property="og:locale:alternate" content={localeMeta[l].ogLocale} />
+            ))}
+          <meta property="og:url" content={canonical} />
+          <meta property="og:title" content={title} />
+          <meta property="og:description" content={description} />
+          <meta property="og:image" content={image} />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+          <meta property="og:image:alt" content={`${person.name} — ${t(person.role, locale)}`} />
+          <meta property="profile:username" content={person.handle} />
+          <meta name="twitter:card" content="summary_large_image" />
+          <script type="application/ld+json" set:html={JSON.stringify(graph).replace(/</g, "\\u003c")} />
+        </>
+      )
+    }
+  </head>
+  <body>
+    <a class="skip" href="#main">{t(copy.skip, locale)}</a>
+    <header class="masthead">
+      <div class="wrap masthead-inner">
+        <a class="wordmark" href={home}><span aria-hidden="true">&gt;_</span>{person.name}</a>
+        <nav aria-label={t(copy.nav, locale)}>
+          {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+        </nav>
+        <ul class="languages" aria-label={t(copy.language, locale)}>
+          {
+            locales.map((l) => (
+              <li>
+                <a
+                  href={getRelativeLocaleUrl(l)}
+                  hreflang={localeMeta[l].htmlLang}
+                  lang={localeMeta[l].htmlLang}
+                  aria-current={l === locale ? "page" : undefined}
+                >
+                  {localeMeta[l].label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </header>
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <footer class="wrap footer">
+      <p>© {new Date().getFullYear()} {person.name}</p>
+      <p>
+        <a href={person.github} rel="me">GitHub</a>
+        <a href={`mailto:${person.email}`}>{person.email}</a>
+      </p>
+    </footer>
+  </body>
+</html>

@@ -115,6 +115,14 @@ export const copy = {
       caption: { en: "A real aggregate spec from the Wow examples", zh: "摘自 Wow 示例中的真实聚合测试" },
       href: "https://github.com/Ahoo-Wang/Wow/blob/main/example/example-domain/src/test/kotlin/me/ahoo/wow/example/domain/cart/CartSpec.kt",
     },
+    segments: {
+      title: { en: "SegmentChainId · segment chain", zh: "SegmentChainId · 号段链" },
+      description: {
+        en: "IDs are handed out from the head segment with a lock-free compare-and-set. Behind it, prefetched segments wait in a chain at least a safe distance long. A PrefetchWorker appends new segments from an IdSegmentDistributor backed by Redis, JDBC, ZooKeeper or MongoDB, doubling the prefetch distance when the generator is hungry and halving it when the chain is full.",
+        zh: "ID 从链头号段以无锁 CAS 方式分配；其后是已预取的号段，长度不低于安全距离。PrefetchWorker 从 IdSegmentDistributor（Redis、JDBC、ZooKeeper 或 MongoDB）申请新号段追加到链尾：饥饿时预取距离加倍，链充足时减半。",
+      },
+      hungry: { en: "hungry ×2 · full ÷2", zh: "饥饿 ×2 · 充足 ÷2" },
+    },
     bits: {
       title: { en: "SnowflakeId bit layout", zh: "SnowflakeId 位布局" },
       description: {
@@ -371,8 +379,8 @@ export type Metric = { value: string; label: Text };
 
 export type CaseStudy = {
   project: string; // a name in `projectGroups`
-  /** Which technical figure illustrates it (see components/figures). */
-  figure: "spec" | "bits" | "cache";
+  /** Technical figures that illustrate it, in order (see components/figures). */
+  figures: ("spec" | "segments" | "bits" | "cache")[];
   headline: Text;
   problem: Text;
   decision: Text;
@@ -385,7 +393,7 @@ export type CaseStudy = {
 export const caseStudies: CaseStudy[] = [
   {
     project: "Wow",
-    figure: "spec",
+    figures: ["spec"],
     headline: { en: "Put the domain model at the heart of the system.", zh: "让领域模型成为系统的核心。" },
     problem: {
       en: "Complex business rules need traceable state changes and coordination across aggregates.",
@@ -409,7 +417,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     project: "CosId",
-    figure: "bits",
+    figures: ["segments", "bits"],
     headline: { en: "Unique IDs without a coordination bottleneck.", zh: "没有协调瓶颈的全局唯一 ID。" },
     metrics: {
       items: [
@@ -425,8 +433,8 @@ export const caseStudies: CaseStudy[] = [
       zh: "分布式 ID 生成需要同时处理机器号分配、时钟回拨与协调开销。",
     },
     decision: {
-      en: "Offer Snowflake and segment algorithms, with machine-ID allocation, rollback handling and segment prefetching.",
-      zh: "提供 Snowflake 与号段算法，结合机器号分配、回拨处理与号段预取。",
+      en: "Two families of generators. SegmentChainId links ID segments into a lock-free chain; a PrefetchWorker keeps a safe distance of segments ready, doubling it when the generator runs hungry and halving it when the chain is full. SnowflakeId adds automatic machine-ID allocation and clock-rollback handling.",
+      zh: "两类生成器。SegmentChainId 把号段串成无锁的号段链，由 PrefetchWorker 维持安全距离：消费过快（饥饿）时加倍预取，链已充足时减半回收。SnowflakeId 则补齐机器号自动分配与时钟回拨处理。",
     },
     tradeoff: {
       en: "Pick the algorithm and coordination store per deployment; component benchmarks are not application throughput guarantees.",
@@ -442,7 +450,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     project: "CoSky",
-    figure: "cache",
+    figures: ["cache"],
     headline: { en: "Service governance without a heavy footprint.", zh: "不增加运维负担的服务治理。" },
     metrics: {
       items: [

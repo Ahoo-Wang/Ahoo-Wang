@@ -6,6 +6,7 @@ import Icon from "./Icon.astro";
 import WritePath from "./WritePath.astro";
 import BitLayout from "./figures/BitLayout.astro";
 import CacheFlow from "./figures/CacheFlow.astro";
+import SegmentChain from "./figures/SegmentChain.astro";
 import SpecFigure from "./figures/SpecFigure.astro";
 import { allProjects, caseStudies, copy, findProject, person, projectGroups, seo, t, type Locale, type Text } from "../content";
 import { compact, isActive, loadStats, NOTABLE_STARS } from "../github";
@@ -19,7 +20,7 @@ const tr = (text: Text) => t(text, locale);
 const pad = (n: number) => String(n).padStart(2, "0");
 const kicker = (n: number, label: Text) => `${pad(n)} / ${tr(label)}`;
 const repoPath = (url: string) => url.replace("https://", "");
-const figures = { spec: SpecFigure, bits: BitLayout, cache: CacheFlow };
+const figures = { spec: SpecFigure, segments: SegmentChain, bits: BitLayout, cache: CacheFlow };
 const month = (iso: string) => iso.slice(0, 7);
 
 const stats = await loadStats();
@@ -99,7 +100,6 @@ const projectList = {
         caseStudies.map((study, i) => {
           const project = findProject(study.project);
           const repo = stats.get(project.repo);
-          const Figure = figures[study.figure];
           return (
             <li>
               <article class="case" aria-labelledby={`case-${i}`}>
@@ -117,7 +117,10 @@ const projectList = {
                       <a href={project.docs}>{tr(copy.work.docs)}<Icon name="arrow-up-right" size={14} /></a>
                     )}
                   </p>
-                  <Figure locale={locale} />
+                  {study.figures.map((name) => {
+                    const Figure = figures[name];
+                    return <Figure locale={locale} />;
+                  })}
                 </div>
                 <div class="case-main">
                 {study.metrics && (

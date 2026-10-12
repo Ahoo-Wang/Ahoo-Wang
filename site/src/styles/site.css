@@ -274,7 +274,9 @@ dt,
   color: var(--muted);
 }
 .figure-bar span:last-child {
+  flex: none;
   color: var(--signal);
+  white-space: nowrap;
 }
 .figure svg {
   display: block;

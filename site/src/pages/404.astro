@@ -1,0 +1,24 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Layout from "../layouts/Layout.astro";
+import { copy, defaultLocale, locales, localeMeta, person, t } from "../content";
+
+const locale = defaultLocale;
+---
+
+<Layout locale={locale} title={`${t(copy.notFound.title, locale)} — ${person.name}`} description={t(copy.notFound.body, locale)} noindex>
+  <section class="wrap intro not-found">
+    <p class="eyebrow">404</p>
+    {
+      locales.map((l) => (
+        <div lang={localeMeta[l].htmlLang}>
+          <h1>{t(copy.notFound.title, l)}</h1>
+          <p class="lede">{t(copy.notFound.body, l)}</p>
+          <p class="actions">
+            <a class="button" href={getRelativeLocaleUrl(l)}>{t(copy.notFound.home, l)}</a>
+          </p>
+        </div>
+      ))
+    }
+  </section>
+</Layout>

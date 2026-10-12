@@ -1,0 +1,192 @@
+---
+// The whole home page for one locale. Order follows what a visitor asks:
+// who is this → what have they built → how do they think → what else → how to reach them.
+import Layout from "../layouts/Layout.astro";
+import Icon from "./Icon.astro";
+import WritePath from "./WritePath.astro";
+import { allProjects, caseStudies, copy, findProject, person, projectGroups, seo, t, type Locale, type Text } from "../content";
+import { compact, loadStats, NOTABLE_STARS } from "../github";
+import { withBase } from "../paths";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const tr = (text: Text) => t(text, locale);
+const pad = (n: number) => String(n).padStart(2, "0");
+const kicker = (n: number, label: Text) => `${pad(n)} / ${tr(label)}`;
+const repoPath = (url: string) => url.replace("https://", "");
+
+const stats = await loadStats();
+const sum = (key: "stars" | "forks") => [...stats.values()].reduce((total, s) => total + s[key], 0);
+// Only claim totals when every repository reported; a partial sum would understate.
+const complete = stats.size === allProjects.length;
+const totals = [
+  { value: String(allProjects.length), label: copy.stats.projects },
+  ...(complete
+    ? [
+        { value: compact(sum("stars")), label: copy.stats.stars },
+        { value: compact(sum("forks")), label: copy.stats.forks },
+      ]
+    : []),
+];
+
+const site = Astro.site!.origin;
+const projectList = {
+  "@type": "ItemList",
+  name: tr(copy.projects.title),
+  itemListElement: allProjects.map((project, position) => ({
+    "@type": "ListItem",
+    position: position + 1,
+    item: {
+      "@type": "SoftwareSourceCode",
+      name: project.name,
+      description: tr(project.summary),
+      codeRepository: project.repo,
+      url: project.docs ?? project.repo,
+      author: { "@id": `${site}/#person` },
+    },
+  })),
+};
+---
+
+<Layout locale={locale} title={tr(seo.title)} description={tr(seo.description)} schema={[projectList]}>
+  <section class="hero" aria-labelledby="intro-title">
+    <div class="wrap hero-grid">
+      <div class="intro">
+        <p class="prompt" aria-hidden="true"><span>~/ahoo-wang</span> $ whoami<i class="caret"></i></p>
+        <div class="identity">
+          <img class="portrait" src={withBase(person.portrait)} alt="" width="56" height="56" />
+          <p class="eyebrow">{tr(copy.intro.eyebrow)}</p>
+        </div>
+        <h1 id="intro-title">{person.name}</h1>
+        <p class="thesis">{tr(copy.intro.thesis)}</p>
+        <p class="lede">{tr(copy.intro.lede)}</p>
+        <p class="focus"><span>{tr(copy.intro.focusLabel)}</span>{tr(copy.intro.focus)}</p>
+        <p class="actions">
+          <a class="button primary" href={`mailto:${person.email}`}><Icon name="envelope" />{tr(copy.intro.email)}</a>
+          <a class="button" href={person.github} rel="me"><Icon name="github" />GitHub</a>
+        </p>
+      </div>
+      <WritePath locale={locale} />
+    </div>
+    <dl class="wrap stats">
+      {
+        totals.map((s) => (
+          <div>
+            <dt>{tr(s.label)}</dt>
+            <dd>{s.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+
+  <section class="wrap section" id="work" aria-labelledby="work-title">
+    <header class="section-head">
+      <p class="kicker">{kicker(1, copy.sections.work)}</p>
+      <h2 id="work-title">{tr(copy.work.title)}</h2>
+      <p>{tr(copy.work.lede)}</p>
+    </header>
+    <ol class="cases">
+      {
+        caseStudies.map((study, i) => {
+          const project = findProject(study.project);
+          const repo = stats.get(project.repo);
+          return (
+            <li>
+              <article class="case" aria-labelledby={`case-${i}`}>
+                <p class="case-bar">
+                  <span class="num">{pad(i + 1)}</span>
+                  <a href={project.repo}>{repoPath(project.repo)}</a>
+                  {repo && repo.stars >= NOTABLE_STARS && <span class="stars" title={tr(copy.stats.stars)}>★ {compact(repo.stars)}</span>}
+                </p>
+                <div class="case-head">
+                  <h3 id={`case-${i}`}>{project.name}</h3>
+                  <p class="case-headline">{tr(study.headline)}</p>
+                  <p class="links">
+                    <a href={project.repo}>{tr(copy.work.source)}<Icon name="arrow-up-right" size={14} /></a>
+                    {project.docs && (
+                      <a href={project.docs}>{tr(copy.work.docs)}<Icon name="arrow-up-right" size={14} /></a>
+                    )}
+                  </p>
+                </div>
+                <dl class="case-body">
+                  <div><dt>{tr(copy.work.problem)}</dt><dd>{tr(study.problem)}</dd></div>
+                  <div><dt>{tr(copy.work.decision)}</dt><dd>{tr(study.decision)}</dd></div>
+                  <div><dt>{tr(copy.work.tradeoff)}</dt><dd>{tr(study.tradeoff)}</dd></div>
+                </dl>
+                <p class="links evidence">
+                  {study.evidence.map((e) => (
+                    <a href={e.href}>{tr(e.label)}<Icon name="arrow-up-right" size={14} /></a>
+                  ))}
+                </p>
+              </article>
+            </li>
+          );
+        })
+      }
+    </ol>
+  </section>
+
+  <section class="wrap section" id="principles" aria-labelledby="principles-title">
+    <header class="section-head">
+      <p class="kicker">{kicker(2, copy.sections.principles)}</p>
+      <h2 id="principles-title">{tr(copy.principles.title)}</h2>
+      <p>{tr(copy.principles.lede)}</p>
+    </header>
+    <ol class="principles">
+      {
+        copy.principles.items.map((item, i) => (
+          <li>
+            <span class="num">{pad(i + 1)}</span>
+            <h3>{tr(item.title)}</h3>
+            <p>{tr(item.body)}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="wrap section" id="projects" aria-labelledby="projects-title">
+    <header class="section-head">
+      <p class="kicker">{kicker(3, copy.sections.projects)}</p>
+      <h2 id="projects-title">{tr(copy.projects.title)}</h2>
+      <p>{tr(copy.projects.lede)}</p>
+    </header>
+    <div class="groups">
+      {
+        projectGroups.map((group) => (
+          <section class="group">
+            <h3>{tr(group.title)}<span>{pad(group.projects.length)}</span></h3>
+            <ul>
+              {group.projects.map((project) => {
+                const repo = stats.get(project.repo);
+                return (
+                  <li class="project">
+                    <a class="project-name" href={project.docs ?? project.repo}>{project.name}</a>
+                    <p>{tr(project.summary)}</p>
+                    <a class="project-repo" href={project.repo} aria-label={`${project.name} — GitHub`}>
+                      {repo && repo.stars >= NOTABLE_STARS && <span>★ {compact(repo.stars)}</span>}
+                      <Icon name="github" />
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+    <p class="more">
+      <a href={`${person.github}?tab=repositories`}>{tr(copy.projects.all)}<Icon name="arrow-up-right" size={14} /></a>
+    </p>
+  </section>
+
+  <section class="wrap section contact" id="contact" aria-labelledby="contact-title">
+    <p class="kicker">{kicker(4, copy.sections.contact)}</p>
+    <h2 id="contact-title">{tr(copy.contact.title)}</h2>
+    <p>{tr(copy.contact.lede)}</p>
+    <a class="email" href={`mailto:${person.email}`}>{person.email}<Icon name="arrow-up-right" size={28} /></a>
+  </section>
+</Layout>

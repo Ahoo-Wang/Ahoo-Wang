@@ -31,12 +31,12 @@ const wide: Layout = {
   height: 340,
   w: 136,
   nodes: [
-    node(84, 40, "Command", "POST /order"),
-    node(280, 40, "Aggregate", "decide()", true),
-    node(476, 40, "Event Store", "append(v+1)"),
+    node(84, 40, "Command", "CommandGateway"),
+    node(280, 40, "Aggregate", "onCommand()", true),
+    node(476, 40, "Event Store", "append()"),
     node(84, 236, "Projection", "read model"),
-    node(280, 236, "Saga", "next command"),
-    node(476, 236, "Snapshot", "state@v"),
+    node(280, 236, "Saga", "@StatelessSaga"),
+    node(476, 236, "Snapshot", "SnapshotStore"),
   ],
   flows: [
     { d: "M152 66 H212", delay: 0 },
@@ -59,12 +59,12 @@ const narrow: Layout = {
   height: 400,
   w: 104,
   nodes: [
-    node(62, 24, "Command", "POST /order"),
-    node(250, 24, "Aggregate", "decide()", true),
-    node(250, 128, "Event Store", "append(v+1)"),
+    node(62, 24, "Command", "CommandGateway"),
+    node(250, 24, "Aggregate", "onCommand()", true),
+    node(250, 128, "Event Store", "append()"),
     node(62, 266, "Projection", "read model"),
-    node(180, 266, "Saga", "next cmd"),
-    node(298, 266, "Snapshot", "state@v"),
+    node(180, 266, "Saga", "@StatelessSaga"),
+    node(298, 266, "Snapshot", "SnapshotStore"),
   ],
   flows: [
     { d: "M114 50 H198", delay: 0 },
@@ -87,7 +87,7 @@ const layouts = [wide, narrow];
   <figcaption class="panel-bar">
     <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
     <span>wow · {t(copy.diagram.title, locale)}</span>
-    <span class="live" aria-hidden="true">live</span>
+    <span class="tag" aria-hidden="true">spec</span>
   </figcaption>
   {
     layouts.map((l) => (
@@ -113,7 +113,7 @@ const layouts = [wide, narrow];
           </g>
         ))}
         <text class="spec" x={l.width / 2} y={l.spec} text-anchor="middle">
-          given(events) → when(command) → expect(state)
+          given → whenCommand → expectEventType
         </text>
       </svg>
     ))
@@ -148,20 +148,12 @@ const layouts = [wide, narrow];
     border-radius: 50%;
     background: var(--line);
   }
-  .live {
+  .tag {
     margin-left: auto;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+    padding: 2px 8px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
     color: var(--signal);
-  }
-  .live::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: currentColor;
-    box-shadow: 0 0 8px currentColor;
   }
   svg {
     display: block;
@@ -181,64 +173,6 @@ const layouts = [wide, narrow];
     }
     .spec {
       font-size: 10px;
-    }
-  }
-  .grid-dot {
-    fill: var(--line);
-    opacity: 0.6;
-  }
-  .wire {
-    fill: none;
-    stroke: var(--line-strong);
-    stroke-width: 1.5;
-  }
-  .packet {
-    fill: none;
-    stroke: var(--signal);
-    stroke-width: 2.5;
-    stroke-linecap: round;
-    stroke-dasharray: 6 94;
-    stroke-dashoffset: 100;
-    filter: drop-shadow(0 0 4px var(--signal));
-    animation: travel 2.4s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  }
-  @keyframes travel {
-    to {
-      stroke-dashoffset: 0;
-    }
-  }
-  .node rect {
-    fill: var(--panel);
-    stroke: var(--line-strong);
-  }
-  .node.hot rect {
-    stroke: var(--accent);
-    filter: drop-shadow(0 0 12px var(--glow));
-  }
-  .node-label {
-    font: 600 14px var(--sans);
-    fill: var(--ink);
-  }
-  .node.hot .node-label {
-    fill: var(--accent);
-  }
-  .node-sub,
-  .wire-label,
-  .spec {
-    font: 11px var(--mono);
-    fill: var(--muted);
-  }
-  .wire-label {
-    font-size: 10px;
-    letter-spacing: 0.04em;
-  }
-  .spec {
-    fill: var(--signal);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .packet {
-      animation: none;
-      stroke-dashoffset: 50;
     }
   }
 </style>

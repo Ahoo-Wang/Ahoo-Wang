@@ -4,8 +4,11 @@
 import Layout from "../layouts/Layout.astro";
 import Icon from "./Icon.astro";
 import WritePath from "./WritePath.astro";
+import BitLayout from "./figures/BitLayout.astro";
+import CacheFlow from "./figures/CacheFlow.astro";
+import SpecFigure from "./figures/SpecFigure.astro";
 import { allProjects, caseStudies, copy, findProject, person, projectGroups, seo, t, type Locale, type Text } from "../content";
-import { compact, loadStats, NOTABLE_STARS } from "../github";
+import { compact, isActive, loadStats, NOTABLE_STARS } from "../github";
 import { withBase } from "../paths";
 
 interface Props {
@@ -16,17 +19,20 @@ const tr = (text: Text) => t(text, locale);
 const pad = (n: number) => String(n).padStart(2, "0");
 const kicker = (n: number, label: Text) => `${pad(n)} / ${tr(label)}`;
 const repoPath = (url: string) => url.replace("https://", "");
+const figures = { spec: SpecFigure, bits: BitLayout, cache: CacheFlow };
+const month = (iso: string) => iso.slice(0, 7);
 
 const stats = await loadStats();
-const sum = (key: "stars" | "forks") => [...stats.values()].reduce((total, s) => total + s[key], 0);
+const stars = [...stats.values()].reduce((total, s) => total + s.stars, 0);
+const active = [...stats.values()].filter((s) => isActive(s)).length;
 // Only claim totals when every repository reported; a partial sum would understate.
 const complete = stats.size === allProjects.length;
 const totals = [
   { value: String(allProjects.length), label: copy.stats.projects },
   ...(complete
     ? [
-        { value: compact(sum("stars")), label: copy.stats.stars },
-        { value: compact(sum("forks")), label: copy.stats.forks },
+        { value: compact(stars), label: copy.stats.stars },
+        { value: `${active}/${allProjects.length}`, label: copy.stats.active },
       ]
     : []),
 ];
@@ -93,6 +99,7 @@ const projectList = {
         caseStudies.map((study, i) => {
           const project = findProject(study.project);
           const repo = stats.get(project.repo);
+          const Figure = figures[study.figure];
           return (
             <li>
               <article class="case" aria-labelledby={`case-${i}`}>
@@ -110,7 +117,21 @@ const projectList = {
                       <a href={project.docs}>{tr(copy.work.docs)}<Icon name="arrow-up-right" size={14} /></a>
                     )}
                   </p>
+                  <Figure locale={locale} />
                 </div>
+                <div class="case-main">
+                {study.metrics && (
+                  <>
+                    <dl class="metrics" aria-label={tr(copy.work.benchmark)}>
+                      {study.metrics.items.map((m) => (
+                        <div><dt>{tr(m.label)}</dt><dd>{m.value}</dd></div>
+                      ))}
+                    </dl>
+                    <p class="metrics-source">
+                      <a href={study.metrics.href}>{tr(study.metrics.source)}<Icon name="arrow-up-right" size={12} /></a>
+                    </p>
+                  </>
+                )}
                 <dl class="case-body">
                   <div><dt>{tr(copy.work.problem)}</dt><dd>{tr(study.problem)}</dd></div>
                   <div><dt>{tr(copy.work.decision)}</dt><dd>{tr(study.decision)}</dd></div>
@@ -121,6 +142,7 @@ const projectList = {
                     <a href={e.href}>{tr(e.label)}<Icon name="arrow-up-right" size={14} /></a>
                   ))}
                 </p>
+                </div>
               </article>
             </li>
           );
@@ -166,6 +188,11 @@ const projectList = {
                   <li class="project">
                     <a class="project-name" href={project.docs ?? project.repo}>{project.name}</a>
                     <p>{tr(project.summary)}</p>
+                    {repo && (
+                      <p class="project-meta">
+                        <span class:list={{ on: isActive(repo) }}>●</span> {tr(copy.projects.updated)} {month(repo.pushedAt)}
+                      </p>
+                    )}
                     <a class="project-repo" href={project.repo} aria-label={`${project.name} — GitHub`}>
                       {repo && repo.stars >= NOTABLE_STARS && <span>★ {compact(repo.stars)}</span>}
                       <Icon name="github" />

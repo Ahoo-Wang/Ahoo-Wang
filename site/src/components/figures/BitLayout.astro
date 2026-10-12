@@ -1,0 +1,34 @@
+---
+// CosId's case: the 64-bit Snowflake layout, each field sized by its bit count.
+import { copy, t, type Locale } from "../../content";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const f = copy.figures.bits;
+const fields = [
+  { name: "sign", bits: 1, note: "0" },
+  { name: "timestamp", bits: 41, note: t(f.timestamp, locale) },
+  { name: "machineId", bits: 10, note: t(f.machine, locale) },
+  { name: "sequence", bits: 12, note: t(f.sequence, locale) },
+];
+---
+
+<figure class="figure bits" aria-labelledby="bits-title">
+  <div class="figure-bar"><span id="bits-title">{t(f.title, locale)}</span><span>64 bit</span></div>
+  <p class="sr-only">{t(f.description, locale)}</p>
+  <div class="bit-row" aria-hidden="true">
+    {fields.map((field) => <span class={`bit bit-${field.name}`} style={`flex-grow:${field.bits}`} />)}
+  </div>
+  <dl class="bit-legend" aria-hidden="true">
+    {
+      fields.slice(1).map((field) => (
+        <div class={`bit-${field.name}`}>
+          <dt>{field.name}<span>{field.bits} bit</span></dt>
+          <dd>{field.note}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</figure>

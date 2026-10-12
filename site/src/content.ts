@@ -48,8 +48,10 @@ export const seo = {
     en: "Ahoo Wang is a systems architect building AI agent platforms and distributed systems, and the author of open-source projects Wow, CosId and CoSky (DDD, CQRS, Event Sourcing).",
     zh: "Ahoo Wang，系统架构师，专注 AI 智能体编排与分布式系统，开源项目 Wow、CosId、CoSky 作者，长期实践 DDD、CQRS 与事件溯源。",
   },
-  image: "/images/og.png",
 };
+
+/** Link-preview image per locale, rendered by scripts/og.mjs. */
+export const ogImage = (locale: Locale) => `/images/og-${locale}.png`;
 
 // ---------------------------------------------------------------- page copy
 
@@ -82,7 +84,7 @@ export const copy = {
   stats: {
     projects: { en: "open-source projects", zh: "个开源项目" },
     stars: { en: "GitHub stars", zh: "GitHub Stars" },
-    forks: { en: "forks", zh: "Forks" },
+    active: { en: "active in the last 30 days", zh: "近 30 天活跃" },
   },
 
   // The hero diagram: how a write flows through a Wow service.
@@ -103,8 +105,41 @@ export const copy = {
     problem: { en: "Problem", zh: "问题" },
     decision: { en: "Decision", zh: "设计" },
     tradeoff: { en: "Trade-off", zh: "边界" },
+    benchmark: { en: "Benchmark", zh: "基准" },
     source: { en: "Source", zh: "源码" },
     docs: { en: "Docs", zh: "文档" },
+  },
+
+  figures: {
+    spec: {
+      caption: { en: "A real aggregate spec from the Wow examples", zh: "摘自 Wow 示例中的真实聚合测试" },
+      href: "https://github.com/Ahoo-Wang/Wow/blob/main/example/example-domain/src/test/kotlin/me/ahoo/wow/example/domain/cart/CartSpec.kt",
+    },
+    segments: {
+      title: { en: "SegmentChainId · segment chain", zh: "SegmentChainId · 号段链" },
+      description: {
+        en: "IDs are handed out from the head segment with a lock-free compare-and-set. Behind it, prefetched segments wait in a chain at least a safe distance long. A PrefetchWorker appends new segments from an IdSegmentDistributor backed by Redis, JDBC, ZooKeeper or MongoDB, doubling the prefetch distance when the generator is hungry and halving it when the chain is full.",
+        zh: "ID 从链头号段以无锁 CAS 方式分配；其后是已预取的号段，长度不低于安全距离。PrefetchWorker 从 IdSegmentDistributor（Redis、JDBC、ZooKeeper 或 MongoDB）申请新号段追加到链尾：饥饿时预取距离加倍，链充足时减半。",
+      },
+      hungry: { en: "hungry ×2 · full ÷2", zh: "饥饿 ×2 · 充足 ÷2" },
+    },
+    bits: {
+      title: { en: "SnowflakeId bit layout", zh: "SnowflakeId 位布局" },
+      description: {
+        en: "A 64-bit ID: 1 unused sign bit, a 41-bit millisecond timestamp (about 69 years), a 10-bit machine ID (1,024 nodes) and a 12-bit sequence (4,096 IDs per millisecond).",
+        zh: "64 位 ID：1 位不用的符号位、41 位毫秒时间戳（约 69 年）、10 位机器号（1024 个节点）与 12 位序列号（每毫秒 4096 个 ID）。",
+      },
+      timestamp: { en: "≈ 69 years", zh: "约 69 年" },
+      machine: { en: "1,024 nodes", zh: "1024 个节点" },
+      sequence: { en: "4,096 / ms", zh: "4096 / 毫秒" },
+    },
+    cache: {
+      title: { en: "CoSky read path", zh: "CoSky 读取链路" },
+      description: {
+        en: "Applications read configuration and instances from an in-process cache. Redis Pub/Sub pushes changes into that cache, so only writes and cache misses go over the network to Redis.",
+        zh: "应用从进程内缓存读取配置与实例；Redis Pub/Sub 把变更推送进缓存，只有写入和缓存未命中才经过网络访问 Redis。",
+      },
+    },
   },
 
   principles: {
@@ -145,6 +180,7 @@ export const copy = {
       zh: "不同的问题，共同的工程追求。",
     },
     all: { en: "All repositories on GitHub", zh: "GitHub 上的全部仓库" },
+    updated: { en: "last push", zh: "最近提交" },
   },
 
   contact: {
@@ -339,18 +375,25 @@ export const allProjects = projectGroups.flatMap((group) => group.projects);
 
 // ---------------------------------------------------------------- featured work
 
+export type Metric = { value: string; label: Text };
+
 export type CaseStudy = {
   project: string; // a name in `projectGroups`
+  /** Technical figures that illustrate it, in order (see components/figures). */
+  figures: ("spec" | "segments" | "bits" | "cache")[];
   headline: Text;
   problem: Text;
   decision: Text;
   tradeoff: Text;
+  /** Published benchmark results, quoted as-is with where they come from. */
+  metrics?: { items: Metric[]; source: Text; href: string };
   evidence: { label: Text; href: string }[];
 };
 
 export const caseStudies: CaseStudy[] = [
   {
     project: "Wow",
+    figures: ["spec"],
     headline: { en: "Put the domain model at the heart of the system.", zh: "让领域模型成为系统的核心。" },
     problem: {
       en: "Complex business rules need traceable state changes and coordination across aggregates.",
@@ -374,14 +417,24 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     project: "CosId",
+    figures: ["segments", "bits"],
     headline: { en: "Unique IDs without a coordination bottleneck.", zh: "没有协调瓶颈的全局唯一 ID。" },
+    metrics: {
+      items: [
+        { value: "127M+", label: { en: "ops/s · SegmentChainId", zh: "ops/s · SegmentChainId" } },
+        { value: "15.6M", label: { en: "ops/s · CosIdGenerator", zh: "ops/s · CosIdGenerator" } },
+        { value: "4.096M", label: { en: "IDs/s per node · Snowflake", zh: "每节点 ID/秒 · Snowflake" } },
+      ],
+      source: { en: "JMH benchmarks, CosId docs", zh: "JMH 基准测试，CosId 文档" },
+      href: "https://cosid.ahoo.me/guide/faq/perf-test.html",
+    },
     problem: {
       en: "Distributed ID generation must handle machine identity, clock rollback and coordination overhead.",
       zh: "分布式 ID 生成需要同时处理机器号分配、时钟回拨与协调开销。",
     },
     decision: {
-      en: "Offer Snowflake and segment algorithms, with machine-ID allocation, rollback handling and segment prefetching.",
-      zh: "提供 Snowflake 与号段算法，结合机器号分配、回拨处理与号段预取。",
+      en: "Two families of generators. SegmentChainId links ID segments into a lock-free chain; a PrefetchWorker keeps a safe distance of segments ready, doubling it when the generator runs hungry and halving it when the chain is full. SnowflakeId adds automatic machine-ID allocation and clock-rollback handling.",
+      zh: "两类生成器。SegmentChainId 把号段串成无锁的号段链，由 PrefetchWorker 维持安全距离：消费过快（饥饿）时加倍预取，链已充足时减半回收。SnowflakeId 则补齐机器号自动分配与时钟回拨处理。",
     },
     tradeoff: {
       en: "Pick the algorithm and coordination store per deployment; component benchmarks are not application throughput guarantees.",
@@ -397,7 +450,20 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     project: "CoSky",
+    figures: ["cache"],
     headline: { en: "Service governance without a heavy footprint.", zh: "不增加运维负担的服务治理。" },
+    metrics: {
+      items: [
+        { value: "706.7M", label: { en: "ops/s · config read, local cache", zh: "ops/s · 读取配置（本地缓存）" } },
+        { value: "58.8k", label: { en: "ops/s · config read, Redis", zh: "ops/s · 读取配置（Redis）" } },
+        { value: "≈12,000×", label: { en: "faster on the hot path", zh: "热路径提速" } },
+      ],
+      source: {
+        en: "JMH, 8 threads, Apple M4 Pro, CoSky 6.0.0",
+        zh: "JMH，8 线程，Apple M4 Pro，CoSky 6.0.0",
+      },
+      href: "https://cosky.ahoo.me/guide/performance",
+    },
     problem: {
       en: "Services need discovery and shared configuration without another heavy cluster to operate.",
       zh: "服务需要注册发现与共享配置，又不想再运维一套沉重的集群。",

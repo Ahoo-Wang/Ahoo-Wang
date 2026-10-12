@@ -1,0 +1,34 @@
+---
+// Wow's case: the Given → When → Expect DSL, quoted verbatim from the repo.
+import { Code } from "astro:components";
+import { copy, t, type Locale } from "../../content";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+// Lines 29–43 of example/example-domain/.../cart/CartSpec.kt.
+const source = `class CartSpec : AggregateSpec<Cart, CartState>(
+    {
+        on {
+            val ownerId = generateGlobalId()
+            val addCartItem = AddCartItem(
+                productId = "productId",
+                quantity = 1,
+            )
+            givenOwnerId(ownerId)
+            whenCommand(addCartItem) {
+                expectNoError()
+                expectEventType(CartItemAdded::class)
+                expectState {
+                    items.assert().hasSize(1)
+                }
+                // …`;
+---
+
+<figure class="figure code-figure">
+  <div class="figure-bar"><span>CartSpec.kt</span><span>kotlin</span></div>
+  <Code code={source} lang="kotlin" themes={{ light: "github-light", dark: "github-dark" }} defaultColor={false} wrap={false} />
+  <figcaption><a href={copy.figures.spec.href}>{t(copy.figures.spec.caption, locale)}</a></figcaption>
+</figure>

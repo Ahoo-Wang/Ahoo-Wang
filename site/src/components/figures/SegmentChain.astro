@@ -1,0 +1,119 @@
+---
+// CosId's case: SegmentChainId. IDs come off the head segment lock-free while a
+// PrefetchWorker keeps the chain at least `safeDistance` segments ahead.
+import { copy, t, type Locale } from "../../content";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const f = copy.figures.segments;
+
+const W = 56; // segment width
+const Y = 40; // segment row
+const H = 46;
+const xs = [12, 78, 144, 210];
+const segments = [
+  { x: xs[0], label: "v", head: true },
+  { x: xs[1], label: "v+1" },
+  { x: xs[2], label: "v+2" },
+];
+const ghost = xs[3];
+---
+
+<figure class="figure segment-chain" aria-labelledby="segments-title">
+  <div class="figure-bar"><span id="segments-title">{t(f.title, locale)}</span><span>lock-free</span></div>
+  <svg viewBox="0 0 280 254" role="img" aria-labelledby="segments-svg-title segments-svg-desc">
+    <title id="segments-svg-title">{t(f.title, locale)}</title>
+    <desc id="segments-svg-desc">{t(f.description, locale)}</desc>
+
+    <text class="wire-label hot-label" x={xs[0] + W / 2} y="16" text-anchor="middle">generate()</text>
+    <path class="wire" d={`M${xs[0] + W / 2} 22 V${Y}`} />
+    <path class="packet fast" d={`M${xs[0] + W / 2} 22 V${Y}`} pathLength="100" />
+
+    {
+      segments.map((s, i) => (
+        <>
+          <g class:list={["node", { hot: s.head }]} transform={`translate(${s.x} ${Y})`}>
+            <rect width={W} height={H} rx="8" />
+            <text class="seg-label" x={W / 2} y="21" text-anchor="middle">{s.label}</text>
+            <rect class="seg-track" x="8" y="31" width={W - 16} height="4" rx="2" />
+            <rect class:list={["seg-fill", { consuming: s.head }]} x="8" y="31" width={W - 16} height="4" rx="2" />
+          </g>
+          <path class:list={["wire", { dashed: i === segments.length - 1 }]} d={`M${s.x + W} ${Y + H / 2} H${xs[i + 1]}`} />
+        </>
+      ))
+    }
+    <g class="node ghost" transform={`translate(${ghost} ${Y})`}>
+      <rect width={W} height={H} rx="8" />
+      <text class="seg-label" x={W / 2} y="28" text-anchor="middle">+</text>
+    </g>
+
+    <text class="wire-label" x={xs[0] + W / 2} y="102" text-anchor="middle">head</text>
+    <path class="bracket" d={`M${xs[1]} 94 V100 H${xs[2] + W} V94`} />
+    <text class="wire-label spec" x={(xs[1] + xs[2] + W) / 2} y="114" text-anchor="middle">safeDistance ≥ 2</text>
+
+    <path class="wire" d={`M${ghost + W / 2} 136 V${Y + H}`} />
+    <path class="packet" d={`M${ghost + W / 2} 136 V${Y + H}`} pathLength="100" />
+    <text class="wire-label" x={ghost + W / 2 - 8} y="128" text-anchor="end">append</text>
+
+    <g class="node">
+      <rect x="12" y="136" width="256" height="46" rx="10" />
+      <text class="node-label" x="140" y="156" text-anchor="middle">PrefetchWorker</text>
+      <text class="node-sub" x="140" y="172" text-anchor="middle">{t(f.hungry, locale)}</text>
+    </g>
+
+    <path class="wire" d="M140 200 V182" />
+    <path class="packet" d="M140 200 V182" pathLength="100" style="animation-delay:0.6s" />
+
+    <g class="node">
+      <rect x="12" y="200" width="256" height="46" rx="10" />
+      <text class="node-label" x="140" y="220" text-anchor="middle">IdSegmentDistributor</text>
+      <text class="node-sub" x="140" y="236" text-anchor="middle">Redis · JDBC · ZooKeeper · MongoDB</text>
+    </g>
+  </svg>
+</figure>
+
+<style>
+  .seg-label {
+    font: 600 12px var(--mono);
+    fill: var(--ink);
+  }
+  .node.hot .seg-label {
+    fill: var(--accent);
+  }
+  .seg-track {
+    fill: var(--line);
+  }
+  .seg-fill {
+    fill: var(--signal);
+  }
+  /* The head segment drains as IDs are handed out; the rest wait full. */
+  .seg-fill.consuming {
+    fill: var(--accent);
+    transform-box: fill-box;
+    transform-origin: right;
+    animation: drain 2.4s linear infinite;
+  }
+  @keyframes drain {
+    from {
+      transform: scaleX(1);
+    }
+    to {
+      transform: scaleX(0.08);
+    }
+  }
+  .ghost rect {
+    fill: none;
+    stroke-dasharray: 4 4;
+  }
+  .ghost .seg-label {
+    fill: var(--muted);
+    font-size: 18px;
+  }
+  .bracket {
+    fill: none;
+    stroke: var(--signal);
+    stroke-width: 1.25;
+  }
+</style>

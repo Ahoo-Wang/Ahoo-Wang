@@ -3,7 +3,7 @@
 // header and the footer. Pages provide <main> content through the slot.
 import { getAbsoluteLocaleUrl, getRelativeLocaleUrl } from "astro:i18n";
 import geist from "../assets/fonts/geist.woff2?url";
-import { copy, defaultLocale, localeMeta, locales, person, seo, t, type Locale } from "../content";
+import { copy, defaultLocale, localeMeta, locales, ogImage, person, t, type Locale } from "../content";
 import { withBase } from "../paths";
 import "../styles/site.css";
 
@@ -22,7 +22,7 @@ const meta = localeMeta[locale];
 const site = Astro.site!.origin;
 const home = getRelativeLocaleUrl(locale);
 const canonical = getAbsoluteLocaleUrl(locale);
-const image = new URL(seo.image, site).href;
+const image = new URL(ogImage(locale), site).href;
 
 const graph = {
   "@context": "https://schema.org",
